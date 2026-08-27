@@ -24,7 +24,7 @@ jobs:
           architecture: "x64"
 
       - run: |
-          curl --fail --location "https://www.losungen.de/fileadmin/media-losungen/download/Losung_${YEAR}_CSV.zip" | python3 scripts/convert-to-rss.py
+          curl --fail --location "https://www.losungen.de/fileadmin/media-losungen/download/Losung_2026_CSV.zip" | python3 scripts/convert-to-rss.py
 
       - name: Deploy 🚀
         if: github.ref == 'refs/heads/main'

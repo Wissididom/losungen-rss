@@ -9,6 +9,9 @@ on:
 permissions:
   contents: write
 
+env:
+  YEAR: 2026
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,7 +27,8 @@ jobs:
           architecture: "x64"
 
       - run: |
-          curl --fail --location "https://www.losungen.de/fileadmin/media-losungen/download/Losung_2026_CSV.zip" | python3 scripts/convert-to-rss.py
+          # --insecure is because the server seems to only return the leaf certificate and not the whole chain. When that is resolved I think --insecure can be removed
+          curl --fail --location --insecure "https://www.losungen.de/fileadmin/media-losungen/download/Losung_${YEAR}_CSV.zip" | python3 scripts/convert-to-rss.py
 
       - name: Deploy 🚀
         if: github.ref == 'refs/heads/main'

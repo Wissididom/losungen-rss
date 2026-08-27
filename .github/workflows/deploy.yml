@@ -5,6 +5,8 @@ on:
     branches:
       - main
   pull_request:
+  schedule:
+    - cron: "0 2 * * *"
 
 permissions:
   contents: write
@@ -34,5 +36,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: JamesIves/github-pages-deploy-action@v4.9.0
         with:
-          branch: gh-pages # The branch the action should deploy to.
           folder: rss # The folder the action should deploy.
+          branch: gh-pages # The branch the action should deploy to.
+          git-config-name: "github-actions[bot]"
+          git-config-email: "41898282+github-actions[bot]@users.noreply.github.com"

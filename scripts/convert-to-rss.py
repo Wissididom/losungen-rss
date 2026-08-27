@@ -104,9 +104,15 @@ def generate_rss(rows, year):
 
     items = []
 
+    today = datetime.now(timezone.utc).date()
+
     for row in rows:
 
-        date = parse_date(row["Datum"])
+        date = parse_date(row["Datum"]).date()
+
+        # Don't publish future entries
+        if date > today:
+            continue
 
         sunday = row.get("Sonntag", "").strip()
 
@@ -123,7 +129,11 @@ def generate_rss(rows, year):
         # RSS requires RFC 822-style dates.
         # Use UTC to avoid depending on the machine's timezone.
         pub_date = format_datetime(
-            date.replace(tzinfo=timezone.utc),
+            datetime.combine(
+                date,
+                datetime.min.time(),
+                tzinfo=timezone.utc,
+            ),
             usegmt=True,
         )
 

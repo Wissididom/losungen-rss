@@ -179,7 +179,7 @@ def main():
         encoding="utf-8",
     )
 
-    output_file.write_text(
+    current_file.write_text(
         rss,
         encoding="utf-8",
     )

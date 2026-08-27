@@ -1,0 +1,34 @@
+name: Build Github Pages
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.x"
+          architecture: "x64"
+
+      - run: |
+          curl --fail --location "https://www.losungen.de/fileadmin/media-losungen/download/Losung_${YEAR}_CSV.zip" | python3 scripts/convert-to-rss.py
+
+      - name: Deploy 🚀
+        if: github.ref == 'refs/heads/main'
+        uses: JamesIves/github-pages-deploy-action@v4.8.0
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: rss # The folder the action should deploy.

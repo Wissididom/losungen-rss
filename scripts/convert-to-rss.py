@@ -96,6 +96,13 @@ def make_description(row):
         f"{lehrtextvers}<br>"
         f"{lehrtext}"
         "</p>"
+        "<hr>"
+        "<p>"
+        "© Evangelische Brüder-Unität – Herrnhuter Brüdergemeine<br>"
+        '<a href="https://www.ebu.de">https://www.ebu.de</a><br><br>'
+        "Weitere Informationen finden sich unter "
+        '<a href="https://www.losungen.de">https://www.losungen.de</a>'
+        "</p>"
     )
 
 
@@ -153,6 +160,12 @@ def generate_rss(rows, year):
     <description>Die Losung für jeden Tag des Jahres {year}</description>
     <link>https://www.losungen.de/</link>
     <language>de</language>
+    <copyright><![CDATA[
+© Evangelische Brüder-Unität – Herrnhuter Brüdergemeine
+https://www.ebu.de
+
+Weitere Informationen finden sich unter https://www.losungen.de
+    ]]></copyright>
     <lastBuildDate>{format_datetime(datetime.now(timezone.utc), usegmt=True)}</lastBuildDate>
 
 {chr(10).join(items)}
